@@ -3,7 +3,7 @@
 
 ![Project Aureole LED disc](./photos/Light-spiral.gif "Project Aureole LED disc")
 
-![Project Aureole LED disc](./photos/inside.png "Project Aureole LED disc")
+![Project Aureole LED disc](./photos/Inside.png "Project Aureole LED disc")
 
 **Aureole** is a programmable LED disc consisting or 24 arms each made up of 21 RGB LEDs. Powered by an Arduino ESP8266 and [Canvas Cast](https://github.com/owenmcateer/canvas-cast). Animations can be streamed over Wifi/USB or programmed directed on the Arduino.
 
