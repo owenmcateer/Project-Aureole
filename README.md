@@ -1,5 +1,6 @@
 # Project Aureole
 ## A programmable circular LED display with 504 pixels.
+![Project Aureole](./photos/Project-Aureole.jpg "Project Aureole")
 
 ![Project Aureole LED disc](./photos/Light-spiral.gif "Project Aureole LED disc")
 
