@@ -1,6 +1,6 @@
 /**
  * Offsets of PI
- * 
+ *
  * From my Motus Art channel.
  * @see https://www.instagram.com/p/BjX_hK_HbaP/
  *
@@ -39,7 +39,6 @@ let addNewEntitySpeed = 30;
 function setup() {
   createCanvas(matrix.width, matrix.height);
   colorMode(HSB, 360, 100, 100, 1);
-  // colorMode(RGB, 255, 255, 255, 1);
   pixelDensity(1);
   frameRate(30);
 }

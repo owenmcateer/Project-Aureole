@@ -55,7 +55,7 @@ function draw() {
   // Draw waves
   for (let i = 0; i < 21; i++) {
     const radius = ((i * 10) + 50);
-    const angle = round((timer * i) * 24) / 24 * TWO_PI;
+    const angle = round(((timer * i) * 24) / 24) * TWO_PI;
 
     const x = cos(angle) * radius + cx;
     const y = sin(angle) * radius + cx;

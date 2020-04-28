@@ -62,7 +62,7 @@ function draw() {
   translate(cx, cx);
   rotate(-HALF_PI);
   rotate(round(map(d.getSeconds(), 0, 59, 0, 24)) * armAngle);
-  line(50, 0, cx, 0)
+  line(50, 0, cx, 0);
   pop();
 
   // Minute
@@ -71,7 +71,7 @@ function draw() {
   translate(cx, cx);
   rotate(-HALF_PI);
   rotate(round(map(d.getMinutes(), 0, 59, 0, 24)) * armAngle);
-  line(50, 0, 220, 0)
+  line(50, 0, 220, 0);
   pop();
 
   // Hour
@@ -79,11 +79,11 @@ function draw() {
   push();
   translate(cx, cx);
   rotate(-HALF_PI);
-  rotate(TWO_PI / 12 * d.getHours());
+  rotate((TWO_PI / 12) * d.getHours());
   if (d.getMinutes() >= 30) {
     rotate(armAngle);
   }
-  line(50, 0, 190, 0)
+  line(50, 0, 190, 0);
   pop();
 
   // Millisecond

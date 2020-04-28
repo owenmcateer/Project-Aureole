@@ -1,6 +1,6 @@
 /**
  * Plasma effect
- * 
+ *
  * Classic plasma effect on Aureole.
  *
  * @ref https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js
@@ -26,10 +26,7 @@ const matrix = {
 // Start WS Matrix
 canvasCast.init(matrix);
 
-const cx = Math.round(matrix.width / 2);
 const plasmaScale = 0.1;
-const arms = 24;
-const pixels = 22;
 
 
 /**
@@ -56,7 +53,7 @@ function draw() {
     const x = ix * plasmaScale;
     const s1 = sin(x + (frameCount / 25));
 
-     for (let iy = 0; iy < gridSize; ++iy) {
+    for (let iy = 0; iy < gridSize; ++iy) {
       const y = iy * plasmaScale;
       const s2 = sin(y + (frameCount / 50));
       const s3 = sin((x + y + frameCount * 0.1) / 2);

@@ -3,6 +3,7 @@
  */
 const RING = 1;
 const ARM = 2;
+
 class Emitter {
   constructor(type, position, placement, speed, colour) {
     this.type = type;
@@ -22,6 +23,7 @@ class Emitter {
       case ARM:
         this.arm_position();
         break;
+      default:
     }
   }
 
@@ -33,9 +35,8 @@ class Emitter {
   }
 
   arm_position() {
-    this.position
     this.angle = ((TWO_PI / 24) * this.placement) - HALF_PI;
-    const distance = round(this.position * cx / 10) * 10;
+    const distance = round((this.position * cx) / 10) * 10;
     this.x = cos(this.angle) * distance + cx;
     this.y = sin(this.angle) * distance + cx;
 
@@ -54,7 +55,6 @@ class Emitter {
   }
 
   render() {
-    fill('blue');
     ellipse(this.x, this.y, 5);
   }
 }

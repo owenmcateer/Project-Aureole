@@ -1,10 +1,10 @@
 /**
  * Cryptocurrency ticker
- * 
+ *
  * @demo ./crypto-ticker/Crypto-tracker-demo.gif
  * A realtime visual feed of Cryptocurrency trading.
  * Green=buy, Red=sell. The length and speed of each trade indicates it's size & priority.
- * 
+ *
  * Kraken (https://docs.kraken.com/websockets/) provides the realtime trading data WebSockets,
  * JavaScript listens for trades and then animates them to Aureole.
  * The white spinner indicates the feed connection is open and brings some life.  
@@ -35,7 +35,7 @@ canvasCast.init(matrix);
 
 // Crypto feed config
 const cx = matrix.width / 2;
-const wsUri = "wss://ws.kraken.com/";
+const wsUri = 'wss://ws.kraken.com/';
 const pairs = [];
 let trades = [];
 let clockTick = 0;
@@ -50,10 +50,10 @@ function setup() {
 
   // Connect to kraken WS API
   websocket = new WebSocket(wsUri);
-  websocket.onopen = function(evt) { onOpen(evt) };
-  websocket.onclose = function(evt) { onClose(evt) };
-  websocket.onmessage = function(evt) { onMessage(evt) };
-  websocket.onerror = function(evt) { onError(evt) };
+  websocket.onopen = function(evt) { onOpen(evt); };
+  websocket.onclose = function(evt) { onClose(evt); };
+  websocket.onmessage = function(evt) { onMessage(evt); };
+  websocket.onerror = function(evt) { onError(evt); };
 }
 
 
@@ -73,7 +73,7 @@ function draw() {
   clockTick += 1;
 
   // Trades array
-  trades.forEach((trade, index) => {
+  trades.forEach((trade) => {
     trade.tick();
     trade.render();
   });
@@ -132,7 +132,8 @@ class Trade {
     translate(cx, cx);
     rotate(this.rotate);
     // ellipse(this.distance, 0, this.size, 10);
-    rect(constrain(max(0, this.distance - this.size), 0, width), -5, min(this.size, this.distance), 10);
+    const x = constrain(max(0, this.distance - this.size), 0, width);
+    rect(x, -5, min(this.size, this.distance), 10);
     pop();
   }
 }
@@ -146,8 +147,8 @@ function subscribeToFeeds() {
     },
     pair: [
       // Fiat
-      "XBT/CHF",
-      "XBT/DAI",
+      'XBT/CHF',
+      'XBT/DAI',
       'BTC/CAD',
       'BTC/EUR',
       'BTC/GBP',
@@ -190,7 +191,7 @@ function subscribeToFeeds() {
 }
 
 // On WS connectino opened
-function onOpen(evt) {
+function onOpen() {
   console.log('Connected');
 
   // Subscribe To Feeds
@@ -198,7 +199,7 @@ function onOpen(evt) {
 }
 
 // On WS connection closed
-function onClose(evt) {
+function onClose() {
   console.log('Disconnected');
 }
 
@@ -208,7 +209,6 @@ function onMessage(evt) {
     case 'heartbeat':
       // Ignore heartbeat pings
       return;
-      break;
 
     case 'subscriptionStatus':
       addPair(evt.data);
@@ -236,24 +236,24 @@ function wsSendMessage(message) {
 // Add a valid trade onto the board
 function addTrade(trade) {
   /**
-    channelID	integer	ChannelID of pair-trade subscription
-    Array	array	Array of trades
-      Array	array	Array of trade values
-        price	float	Price
-        volume	float	Volume
-        time	float	Time, seconds since epoch
-        side	string	Triggering order side (buy/sell), values: b|s
-        orderType	string	Triggering order type (market/limit), values: m|l
-        misc	string	Miscellaneous
+    channelID integer ChannelID of pair-trade subscription
+    Array array Array of trades
+      Array array Array of trade values
+        price float Price
+        volume float Volume
+        time float Time, seconds since epoch
+        side string Triggering order side (buy/sell), values: b|s
+        orderType string Triggering order type (market/limit), values: m|l
+        misc string Miscellaneous
   */
   const tradeData = JSON.parse(trade);
-  tradeData[1].forEach(trade => {
-    trades.push(new Trade(trade[3], trade[0], trade[1], pairs[tradeData[0]]));
+  tradeData[1].forEach((tradeEvent) => {
+    trades.push(new Trade(tradeEvent[3], tradeEvent[0], tradeEvent[1], pairs[tradeData[0]]));
     console.log(`
       Trade(${pairs[tradeData[0]]})|
-      ${tradeType(trade[3])}
-        - price:${trade[0]}
-        - volume:${trade[1]}
+      ${tradeType(tradeEvent[3])}
+        - price:${tradeEvent[0]}
+        - volume:${tradeEvent[1]}
     `);
   });
 }
@@ -262,11 +262,13 @@ function tradeType(type) {
   switch (type) {
     case 'b':
       return 'BUY';
-      break;
 
-      case 's':
+    case 's':
       return 'SELL';
-      break;
+
+    default:
+      console.error(type);
+      return null;
   }
 }
 

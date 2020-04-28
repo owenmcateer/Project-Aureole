@@ -27,7 +27,6 @@ const matrix = {
 canvasCast.init(matrix);
 
 const cx = Math.round(matrix.width / 2);
-const offset = 20;
 let testMode = 0;
 
 
@@ -58,6 +57,9 @@ function draw() {
   );
 
   const testColour = color(255);
+  let x;
+  let ringSize;
+
   // Test animations
   switch (testMode) {
     // Arms
@@ -67,25 +69,25 @@ function draw() {
       translate(cx, cx);
       rotate(map(cos(frameCount / 200), 1, -1, 0, TWO_PI) - HALF_PI);
       quad(0, 0, cx, -35, cx, 35);
-    break;
+      break;
 
     // Rings
     case 1:
       noFill();
       stroke(testColour);
       strokeWeight(10);
-      const ringSize = map(cos(frameCount / 90), -1, 1, 80, 460);
+      ringSize = map(cos(frameCount / 90), -1, 1, 80, 460);
       ellipse(cx, cx, ringSize, ringSize);
-    break;
+      break;
 
     // Swipe
     case 2:
       noStroke();
       fill(testColour);
-      const x = map(cos(frameCount / 100), 1, -1, 0, canvasSize);
-      rect(x, cx, 20, canvasSize);
-      rect(cx, x, canvasSize, 20);
-    break;
+      x = map(cos(frameCount / 100), 1, -1, 0, matrix.width);
+      rect(x, cx, 20, matrix.width);
+      rect(cx, x, matrix.width, 20);
+      break;
 
     default:
       testMode = 0;

@@ -26,9 +26,6 @@ const matrix = {
 // Start WS Matrix
 canvasCast.init(matrix);
 
-const cx = Math.round(matrix.width / 2);
-let timer = 0;
-const speed = 0.002;
 const pixels = [];
 let emitters = [];
 let degradeSpeed = 3;
@@ -69,7 +66,8 @@ function draw() {
   emitters = emitters.filter((e) => e.alive);
 
   // Spiral bursts
-  emitters.push(new Emitter(ARM, 0, armCount, 0.03, [map(sin(frameCount/20), -1, 1, 1, 360), 100, 100]));
+  const col = map(sin(frameCount / 20), -1, 1, 1, 360);
+  emitters.push(new Emitter(ARM, 0, armCount, 0.03, [col, 100, 100]));
   armCount++;
 
   // Cast data

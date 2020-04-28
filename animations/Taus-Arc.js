@@ -1,6 +1,6 @@
 /**
  * Taus Arc
- * 
+ *
  * From my Motus Art channel.
  * @see https://www.instagram.com/p/BvKRZQxHBnv/
  *

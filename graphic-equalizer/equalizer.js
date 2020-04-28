@@ -4,11 +4,11 @@
  * I build this display with a graphic equalizer in mind.
  * The 24 arms of LEDs to display 24 bands of frequency
  * ranges with falloff, changing colours, patterns,
- * whatever you can think of to bring music to life. 
- *   
+ * whatever you can think of to bring music to life.
+ *
  * The audio processing (FFT) is done on the computer
  * playing the music in this JavaScript file.
- * 
+ *
  * @ref https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js
  * @ref https://cdn.jsdelivr.net/gh/owenmcateer/canvas-cast/dist/App.js
  * @ref ./pixel-map.js
@@ -45,12 +45,15 @@ const fftSettings = {
     end: 2048,
   },
 };
-let audioInAmp = 20;
+const audioInAmp = 20;
 const fallOff = new Array(24).fill(0);
 const fallOffRate = 0.4;
+let fft;
 
 
-// Setup
+/**
+ * Setup
+ */
 function setup() {
   createCanvas(matrix.width, matrix.height);
   pixelDensity(1);
@@ -65,15 +68,18 @@ function setup() {
   fft.setInput(audioIn);
 }
 
-// Draw tick
+
+/**
+ * Draw tick
+ */
 function draw() {
   background(0);
 
   // FFT analyze
-  let spectrum = fft.analyze();
+  const spectrum = fft.analyze();
 
   // Frequency ranges
-  for (i = 0; i < 24; i++) {
+  for (let i = 0; i < 24; i++) {
     const ii = round(map(i, 0, 24, fftSettings.range.start, fftSettings.range.end));
     const strength = round(map(spectrum[ii], 0, 255, 0, 21));
     processFallOff(i, strength);
@@ -91,7 +97,7 @@ function draw() {
         // Rainbox effect
         fill(map(sin(map(i, 0, 24, 0, PI) + (frameCount / 40)), -1, 1, 0, 360), 100, 100);
         drawArm(i, strength, true);
-      break;
+        break;
 
       case 2:
         // Cool blue
@@ -111,6 +117,8 @@ function draw() {
         fill(map(sin(map(i, 0, 24, 0, PI) + (frameCount / -80)), -1, 1, 160, 312), 100, 100);
         drawArm(i, strength, true);
         break;
+
+      default:
     }
   }
 
@@ -143,7 +151,7 @@ function drawArm(arm, amount, fill = false) {
   const angle = armAngle * -arm + angleOffset;
 
   // Arm pixels
-  for(j = (fill ? 0 : amount - 1); j < amount; j++) {
+  for (let j = (fill ? 0 : amount - 1); j < amount; j++) {
     const radius = (j * 10) + 50;
     const x = (Math.cos(-angle) * radius) + cx;
     const y = (Math.sin(-angle) * radius) + cx;
@@ -164,7 +172,7 @@ function drawPlasmaArm(arm, amount) {
   const angle = armAngle * -arm + angleOffset;
 
   // Arm pixels
-  for (j = (fill ? 0 : amount - 1); j < amount; j++) {
+  for (let j = (fill ? 0 : amount - 1); j < amount; j++) {
     // Position
     const radius = (j * 10) + 50;
     const x = (Math.cos(-angle) * radius) + cx;
@@ -196,7 +204,7 @@ function drawUvArm(arm, amount) {
   const angle = armAngle * -arm + angleOffset;
 
   // Arm pixels
-  for(j = (fill ? 0 : amount - 1); j < amount; j++) {
+  for (let j = (fill ? 0 : amount - 1); j < amount; j++) {
     fill(map(j, 0, 16, 123, 0), 100, 100);
     const radius = (j * 10) + 50;
     const x = (Math.cos(-angle) * radius) + cx;
@@ -209,14 +217,14 @@ function drawUvArm(arm, amount) {
 /**
  * Process falloff.
  *
- * @param {int} entity 
- * @param {int} strength 
+ * @param {int} entity
+ * @param {int} strength
  */
 function processFallOff(entity, strength) {
   if (strength >= fallOff[entity]) {
     fallOff[entity] = strength;
   }
-  else if ( fallOff[entity] > 0) {
+  else if (fallOff[entity] > 0) {
     fallOff[entity] -= fallOffRate;
   }
 }

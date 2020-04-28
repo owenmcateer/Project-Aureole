@@ -26,9 +26,6 @@ const matrix = {
 // Start WS Matrix
 canvasCast.init(matrix);
 
-const cx = Math.round(matrix.width / 2);
-let timer = 0;
-const speed = 0.002;
 const pixels = [];
 let emitters = [];
 let degradeSpeed;
