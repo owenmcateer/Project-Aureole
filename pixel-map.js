@@ -21,7 +21,7 @@ function gFxMap(size) {
     const angle = armAngle * i + angleOffset;
 
     // Arm pixels
-    for(j = 0; j < armPixels; j++) {
+    for (let j = 0; j < armPixels; j++) {
       const radius = (j * 10) + 50;
       const x = (Math.sin(angle) * radius) + midPoint;
       const y = (Math.cos(angle) * radius) + midPoint;
